@@ -39,7 +39,8 @@ class LibmicrohttpdConan(ConanFile):
             args = ['--disable-static' if self.options.shared else '--disable-shared']
             args.append('--disable-doc')
             args.append('--disable-examples')
-            args.append('--with-pic={}'.format('yes' if self.options.fPIC else 'no'))
+            if self.settings.os != 'Windows':
+                args.append('--with-pic={}'.format('yes' if self.options.fPIC else 'no'))
             args.append('--disable-curl')
             self.autotools.configure(args=args)
         return self.autotools
