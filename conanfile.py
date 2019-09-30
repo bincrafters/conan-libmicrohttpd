@@ -16,8 +16,8 @@ class LibmicrohttpdConan(ConanFile):
     exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = "shared=False", "fPIC=True"
-    source_subfolder = "source_subfolder"
+    default_options = {'shared': False, 'fPIC': True}
+    _source_subfolder = "source_subfolder"
     autotools = None
 
     def config_options(self):
@@ -31,7 +31,7 @@ class LibmicrohttpdConan(ConanFile):
         source_url = "https://ftp.gnu.org/gnu/libmicrohttpd"
         tools.get("{0}/libmicrohttpd-{1}.tar.gz".format(source_url, self.version))
         extracted_dir = self.name + "-" + self.version
-        os.rename(extracted_dir, self.source_subfolder)
+        os.rename(extracted_dir, self._source_subfolder)
 
     def configure_autotools(self):
         if self.autotools is None:
@@ -44,13 +44,13 @@ class LibmicrohttpdConan(ConanFile):
         return self.autotools
 
     def build(self):
-        with tools.chdir(self.source_subfolder):
+        with tools.chdir(self._source_subfolder):
             autotools = self.configure_autotools()
             autotools.make()
 
     def package(self):
-        self.copy(pattern="COPYING", dst="licenses", src=self.source_subfolder)
-        with tools.chdir(self.source_subfolder):
+        self.copy(pattern="COPYING", dst="licenses", src=self._source_subfolder)
+        with tools.chdir(self._source_subfolder):
             autotools = self.configure_autotools()
             autotools.install()
 
