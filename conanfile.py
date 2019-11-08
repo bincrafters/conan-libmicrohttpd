@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 from conans import ConanFile, AutoToolsBuildEnvironment, tools
 import os
 
@@ -12,7 +9,6 @@ class LibmicrohttpdConan(ConanFile):
     url = "https://github.com/bincrafters/conan-libmicrohttpd"
     homepage = "https://www.gnu.org/software/libmicrohttpd/"
     license = "LGPL-2.1"
-    author = "Bincrafters <bincrafters@gmail.com>"
     exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False]}
@@ -26,6 +22,7 @@ class LibmicrohttpdConan(ConanFile):
 
     def configure(self):
         del self.settings.compiler.libcxx
+        del self.settings.compiler.cppstd
 
     def source(self):
         source_url = "https://ftp.gnu.org/gnu/libmicrohttpd"
