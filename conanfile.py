@@ -9,7 +9,6 @@ class LibmicrohttpdConan(ConanFile):
     url = "https://github.com/bincrafters/conan-libmicrohttpd"
     homepage = "https://www.gnu.org/software/libmicrohttpd/"
     license = "LGPL-2.1"
-    exports = ["LICENSE.md"]
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {'shared': False, 'fPIC': True}
